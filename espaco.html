@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💖 Meu Encanto 💖</title>
+  <style>
+    body {
+      font-family: 'Arial';
+      background-color: #fff0f5;
+      padding: 30px;
+      text-align: center;
+    }
+    h1 {
+      color: #e91e63;
+    }
+    img {
+      max-width: 90%;
+      border-radius: 15px;
+      margin: 20px 0;
+    }
+    iframe {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="nome"></h1>
+  <p id="frase"></p>
+  <img id="imagem" src="" alt="Imagem do casal" />
+  <div id="musica"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById('nome').textContent = decodeURIComponent(params.get('nome'));
+    document.getElementById('frase').textContent = decodeURIComponent(params.get('frase'));
+    document.getElementById('imagem').src = decodeURIComponent(params.get('imagem'));
+
+    const musicaURL = decodeURIComponent(params.get('musica'));
+    if (musicaURL.includes("youtube.com") || musicaURL.includes("youtu.be")) {
+      const videoId = musicaURL.includes("watch?v=")
+        ? musicaURL.split("watch?v=")[1].split("&")[0]
+        : musicaURL.split("/").pop().split("?")[0];
+      const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+      document.getElementById("musica").innerHTML = `<iframe width="300" height="180" src="${embedUrl}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+    }
+  </script>
+</body>
+</html>

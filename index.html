@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MeuEncanto.fun 💖</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ffe6f0, #ffe6fa);
+      text-align: center;
+      padding: 20px;
+    }
+    input, textarea {
+      padding: 10px;
+      margin: 10px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .qr-code {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>💖 MeuEncanto.fun 💖</h1>
+  <p>Crie uma declaração personalizada com imagem, música e QR Code!</p>
+
+  <input type="text" id="nome" placeholder="Nome do casal"><br>
+  <textarea id="frase" placeholder="Sua frase romântica aqui..."></textarea><br>
+  <input type="text" id="imagem" placeholder="Link da imagem (ex: imgur.com/abc.jpg)"><br>
+  <input type="text" id="musica" placeholder="Link da música no YouTube"><br>
+
+  <button onclick="gerarQRCode()">Gerar QR Code</button>
+
+  <div class="qr-code">
+    <img id="qrcode" src="" alt="QR Code será exibido aqui" style="margin-top:20px;" />
+  </div>
+
+  <script>
+    function gerarQRCode() {
+      const nome = encodeURIComponent(document.getElementById('nome').value);
+      const frase = encodeURIComponent(document.getElementById('frase').value);
+      const imagem = encodeURIComponent(document.getElementById('imagem').value);
+      const musica = encodeURIComponent(document.getElementById('musica').value);
+
+      const url = `${location.origin}/espaco.html?nome=${nome}&frase=${frase}&imagem=${imagem}&musica=${musica}`;
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=200x200`;
+      document.getElementById('qrcode').src = qrUrl;
+    }
+  </script>
+</body>
+</html>
